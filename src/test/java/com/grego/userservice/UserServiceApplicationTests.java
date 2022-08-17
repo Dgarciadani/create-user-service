@@ -2,22 +2,29 @@ package com.grego.userservice;
 
 import com.grego.userservice.domain.Phone;
 import com.grego.userservice.domain.User;
-import com.grego.userservice.service.IUserService;
+import com.grego.userservice.domain.dto.UserReceivedDto;
+import com.grego.userservice.domain.dto.UserSendDto;
 import com.grego.userservice.service.impl.UserService;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
 class UserServiceApplicationTests {
 
 	@Autowired
 	private UserService userService;
+
+
+    @Autowired
+    private ModelMapper modelmapper;
 
 
 	@Test
@@ -31,14 +38,16 @@ class UserServiceApplicationTests {
 		user.setEmail("hello@gmail.com");
 		user.setPassword("123456");
 		user.setPhones(Set.of(phone));
-		user.setCreateAt(LocalDate.now());
-		user.setUpdateAt(LocalDate.now());
+		user.setCreated(LocalDate.now());
+		user.setModified(LocalDate.now());
 		user.setActive(true);
-		User savedUser = userService.create(user);
+        user.setLastLogin(LocalDate.now());
+        UserReceivedDto userReceivedDto = modelmapper.map(user, UserReceivedDto.class);
+		UserSendDto savedUser = userService.create(userReceivedDto);
 		System.out.println(savedUser);
-		Assertions.assertNotNull(savedUser);
-		Assertions.assertNotNull(savedUser.getId());
-		Assertions.assertEquals(user.getName(), savedUser.getName());
+		assertNotNull(savedUser);
+		assertNotNull(savedUser.getId());
+		//Assertions.assertEquals(user.getEmail(), savedUser.());
 
 
 	}

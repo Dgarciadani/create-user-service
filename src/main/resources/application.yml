@@ -11,8 +11,14 @@ spring:
   h2:
     console:
       enabled: true
-  #sql:
+
   #  init:
   #   data-locations: classpath:input.sql
   jpa:
     defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    #sql:
+springdoc:
+  swagger-ui:
+    enabled: true

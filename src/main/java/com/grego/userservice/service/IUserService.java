@@ -1,15 +1,18 @@
 package com.grego.userservice.service;
 
+import com.grego.userservice.domain.dto.UserSendDto;
+
 import java.util.List;
+import java.util.UUID;
 
 public interface IUserService<T> {
-    T create(T t);
+    UserSendDto create(T t);
 
-    T update(T t);
+    UserSendDto update(T t);
 
-    void delete(Long id);
+    UserSendDto findById(UUID id);
 
-    List<T> findAll();
+    boolean existsByEmail(String email);
 
 }
 

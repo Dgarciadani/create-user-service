@@ -5,11 +5,8 @@ import java.util.List;
 public interface IPhoneService<T> {
     T create(T t);
 
-    T update(T t);
+    List<T> saveAll(List<T> t);
 
-    void delete(Long id);
-
-    List<T> findAll();
 
 }
 

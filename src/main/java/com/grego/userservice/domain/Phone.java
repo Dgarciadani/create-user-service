@@ -25,8 +25,8 @@ public class Phone {
     @JsonIgnore
     private User user;
     private String number;
-    private String cityCode;
-    private String countryCode;
+    private String citycode;
+    private String countrycode;
 
 
 }
