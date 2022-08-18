@@ -28,11 +28,10 @@ public class User implements UserDetails {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
     private String name;
-    //email regex
     private String email;
-    //password regex
     private String password;
 
+    //Phones
     @OneToMany(mappedBy = "user")
     private Set<Phone> phones;
 
@@ -41,8 +40,10 @@ public class User implements UserDetails {
     private LocalDate modified;
     private LocalDate lastLogin;
 
-    //state
+    //State
     private boolean active;
+
+    //Role
     private UserRoles userRoles;
 
 
@@ -52,6 +53,8 @@ public class User implements UserDetails {
         return Collections.singletonList(authority);
     }
 
+
+    //Not necessary for this project
     @Override
     public String getUsername() {
         return null;

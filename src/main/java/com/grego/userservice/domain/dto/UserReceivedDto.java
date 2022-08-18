@@ -19,6 +19,7 @@ import java.util.UUID;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserReceivedDto {
+
     @NotNull(message = "name is required")
     private String name;
     @Email(message = "Email format is not valid")

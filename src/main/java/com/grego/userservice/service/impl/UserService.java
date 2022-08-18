@@ -11,6 +11,7 @@ import com.grego.userservice.repository.IUserRepository;
 import com.grego.userservice.security.jwt.JwtTokenUtil;
 import com.grego.userservice.service.IPhoneService;
 import com.grego.userservice.service.IUserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -30,18 +31,19 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserService implements IUserService<UserReceivedDto>, UserDetailsService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private final IUserRepository userRepository;
     private final IPhoneService phoneService;
-    @Autowired
+
     private final ModelMapper modelMapper;
 
-    @Autowired
     private JwtTokenUtil jwtUtil;
+
+
     @Override
     @Transactional(rollbackOn = ConstraintViolationException.class)
     public UserSendDto create(UserReceivedDto user) {
@@ -73,12 +75,14 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
         }
     }
 
+    //TODO: Comletar el método
     @Override
     public UserSendDto update(UserReceivedDto user) {
         //  return userRepository.save(user);
         return null;
     }
 
+    //TODO: Delete this method
     @Override
     public UserSendDto findById(UUID id) {
         LOGGER.info("Finding user by id");
@@ -86,9 +90,11 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
         User user = userRepository.findUserById(id);
         LOGGER.info("User found");
         LOGGER.debug("user: {}", user);
-        return modelMapper.map(user, UserSendDto.class);
+        UserSendDto userSend = modelMapper.map(user, UserSendDto.class);
+        return userSend;
     }
 
+    //support method for create and update
     @Override
     public boolean existsByEmail(String email) {
         LOGGER.info("Checking if user exists by email");
@@ -110,7 +116,6 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
             user.setLastLogin(LocalDate.now());
             user.setUserRoles(UserRoles.USER);
             user.setActive(true);
-           // user.setPhones(null);
             LOGGER.info("User initialized");
             return user;
         } catch (Exception e) {
@@ -120,6 +125,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
     }
 
 
+    //required for userDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findUserByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));

@@ -20,7 +20,6 @@ public class Phone {
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull(message = "user is required")
