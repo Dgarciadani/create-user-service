@@ -95,6 +95,7 @@ tengo discrepancias con este punto, bajo mi punto de vista, no deberia ser persi
 - Framework SpringBoot.
 - Java 17
 - JWT como token
+- Enpoints seleccionados protegidos con Spring Security
 - Pruebas unitarias
 - Swagger
 
