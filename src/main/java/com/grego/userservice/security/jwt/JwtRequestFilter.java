@@ -1,7 +1,8 @@
 package com.grego.userservice.security.jwt;
 
 import com.grego.userservice.service.impl.UserService;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +19,7 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private static final Logger Logger  = org.apache.logging.log4j.LogManager.getLogger(JwtRequestFilter.class);
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(JwtRequestFilter.class);
     @Autowired
     private UserService userService;
 
@@ -35,8 +36,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if(authorizationHeader != null &&  authorizationHeader.startsWith("Bearer")) {
             jwt = authorizationHeader.substring(7);
             username = jwtTokenUtil.extractUserName(jwt);
-            logger.info("JWT: "+jwt);
-            logger.info("Username: "+username);
+            LOGGER.info("JWT: "+jwt);
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
