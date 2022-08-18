@@ -78,6 +78,7 @@ Se utiliza la annotation `@Email` para corroborar el formato. En caso de error:
 ```JSON
 {
     "message": "Invalid password format. Must be 6 characters or more, 1 uppercase, 1 lowercase, 1 number, 1 special character"
+}
 ```
 
 
@@ -108,7 +109,7 @@ tengo discrepancias con este punto, bajo mi punto de vista, no deberia ser persi
 
 | Body | Tipo     | Descripción                |
 | :-------- | :------- | :------------------------- |
-| `Datos Usuario` | `JSON` | **Requerido**. Datos del usuario a crear |
+| `Datos Usuario` | `JSON` | **Requerido**. Datos del usuario a crear. Se pueden enviar más de un phone por usuario |
 
 
 ##### Estructura pedida:
@@ -158,7 +159,7 @@ tengo discrepancias con este punto, bajo mi punto de vista, no deberia ser persi
 Para probar esta solución. He creado una colección de test en Postman para probar las funcionalidades claves requeridas, los mismos pueden ser importados a postman desde el siguente link:
 [https://www.getpostman.com/collections/ed18b180799f150a1fe6](https://www.getpostman.com/collections/ed18b180799f150a1fe6)
 
-O ser descargados desde este repositorio e importados a postman, el archivo se nombra "User_Service.postman_collection.json"
+O ser descargados desde este repositorio e importados a Postman, el archivo se nombra "User_Service.postman_collection.json"
 
 
 Cada consulta tiene sus test y son importados junto con cada una de ellas, se puede hacer un "Run All Collection" para probar todos o probar de a uno.
