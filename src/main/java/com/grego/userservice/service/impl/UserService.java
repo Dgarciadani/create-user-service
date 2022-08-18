@@ -52,11 +52,8 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
         } else {
             try {
                 LOGGER.info("Creating user");
-                LOGGER.info("password" + user.getPassword());
                 User userEntity = modelMapper.map(user, User.class);
-                LOGGER.info("Entidad creada");
                 userEntity = this.initializer(userEntity);
-                LOGGER.info("Entidad IGUALADA ");
                 LOGGER.info(userEntity.toString());
                 User savedUser = userRepository.save(userEntity);
                 LOGGER.info("User saved");
@@ -66,11 +63,13 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
                 UserSendDto map = modelMapper.map(savedUser, UserSendDto.class);
                 String jwt = jwtUtil.generateToken(savedUser);
                 map.setToken(jwt);
+                this.saveToken(savedUser.getEmail(), jwt);
+
+                LOGGER.info("jwt generated");
                 return map;
 
             } catch (Exception e) {
-                LOGGER.error(e.getMessage());
-                throw e;
+                throw new RuntimeException("Error creating user", e);
             }
         }
     }
@@ -78,8 +77,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
     //TODO: Comletar el método
     @Override
     public UserSendDto update(UserReceivedDto user) {
-        //  return userRepository.save(user);
-        return null;
+return null;
     }
 
     //TODO: Delete this method
@@ -102,6 +100,18 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
         boolean exists = userRepository.existsByEmail(email);
         LOGGER.info("User exists: {}", exists);
         return exists;
+    }
+
+
+    //use this method to save the token in the database after the user is created and saved
+    @Override
+    public void saveToken(String email, String token) {
+        LOGGER.info("Saving token");
+        LOGGER.debug("email: {}", email);
+        LOGGER.debug("token: {}", token);
+        userRepository.updateUserTokenByEmail(email, token);
+        LOGGER.info("Token saved");
+
     }
 
 

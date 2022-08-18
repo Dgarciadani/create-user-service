@@ -45,6 +45,7 @@ public class User implements UserDetails {
 
     //Role
     private UserRoles userRoles;
+    private String token;
 
 
     @Override

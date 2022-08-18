@@ -13,6 +13,8 @@ public interface IUserService<T> {
 
     boolean existsByEmail(String email);
 
+    void saveToken(String email, String token);
+
 }
 
 
