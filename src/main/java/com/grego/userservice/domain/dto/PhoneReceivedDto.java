@@ -21,4 +21,9 @@ public class PhoneReceivedDto {
     @NotNull(message = "country code is required")
     private String countrycode;
 
+    public PhoneReceivedDto(String number, String citycode, String countrycode) {
+        this.number = number;
+        this.citycode = citycode;
+        this.countrycode = countrycode;
+    }
 }

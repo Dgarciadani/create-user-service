@@ -4,6 +4,7 @@ import com.grego.userservice.domain.dto.UserReceivedDto;
 import com.grego.userservice.domain.dto.UserSendDto;
 import com.grego.userservice.service.IUserService;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
-
+@AllArgsConstructor
 public class UserController {
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-    @Autowired
+
     private IUserService userService;
 
     @PostMapping("/register")
@@ -29,11 +30,12 @@ public class UserController {
 
     }
 
+    //this endpoint is protected by JWT whit any authority level
+    //use Bearer token in the Authorization header
     @PostMapping("/disable")
     public ResponseEntity<UserSendDto> disableUser(@RequestParam String email) {
         return new ResponseEntity<UserSendDto>(userService.disableUser(email), HttpStatus.OK);
     }
-
 
 
     //TODO: FINAL! Delete EXcedent code (Looggers)

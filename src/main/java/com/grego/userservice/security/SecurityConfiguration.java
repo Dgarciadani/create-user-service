@@ -1,6 +1,7 @@
 package com.grego.userservice.security;
 
 
+import com.grego.userservice.domain.UserRoles;
 import com.grego.userservice.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +33,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-
-                .authorizeRequests().antMatchers("/**","**/h2-console/**","/console/**","**/swagger-ui.html/**").permitAll().anyRequest().authenticated().and()
+                .authorizeRequests().antMatchers("/users/disable/").hasAnyAuthority(UserRoles.ADMIN.name(), UserRoles.USER.name())
+                .and()
+                .authorizeRequests().antMatchers("/**", "**/h2-console/**", "/console/**", "**/swagger-ui.html/**").permitAll().anyRequest().authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
