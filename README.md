@@ -173,4 +173,4 @@ http://localhost:8080
 
 ## Diagram
 
-![Diagram](https://drive.google.com/file/d/1FNXYdfNHhMlonaWtnpEuHpgAmd0V9EGI)
+![Diagram](https://drive.google.com/uc?export=view&id=1FNXYdfNHhMlonaWtnpEuHpgAmd0V9EGI)
