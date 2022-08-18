@@ -29,11 +29,6 @@ public class UserController {
 
     }
 
-    @GetMapping("/find")
-    public UserSendDto findById(@RequestParam UUID id) {
-        return userService.findById(id);
-    }
-
     @PostMapping("/disable")
     public ResponseEntity<UserSendDto> disableUser(@RequestParam String email) {
         return new ResponseEntity<UserSendDto>(userService.disableUser(email), HttpStatus.OK);

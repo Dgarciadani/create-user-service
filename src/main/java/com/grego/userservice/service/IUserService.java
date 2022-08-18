@@ -10,8 +10,6 @@ public interface IUserService<T> {
 
     UserSendDto disableUser(String email);
 
-    UserSendDto findById(UUID id);
-
     UserSendDto findUserByEmail(String email);
 
     boolean existsByEmail(String email);

@@ -95,18 +95,6 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
     }
 
 
-    //TODO: Delete this method
-    @Override
-    public UserSendDto findById(UUID id) {
-        LOGGER.info("Finding user by id");
-        LOGGER.debug("id: {}", id);
-        User user = userRepository.findUserById(id);
-        LOGGER.info("User found");
-        LOGGER.debug("user: {}", user);
-        UserSendDto userSend = modelMapper.map(user, UserSendDto.class);
-        return userSend;
-    }
-
     @Override
     public UserSendDto findUserByEmail(String email) {
         if(this.existsByEmail(email)) {
