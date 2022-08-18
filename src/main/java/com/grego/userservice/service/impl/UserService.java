@@ -7,6 +7,7 @@ import com.grego.userservice.domain.dto.PhoneReceivedDto;
 import com.grego.userservice.domain.dto.UserReceivedDto;
 import com.grego.userservice.domain.dto.UserSendDto;
 import com.grego.userservice.exceptions.EmailAlreadyRegisteredException;
+import com.grego.userservice.exceptions.ResourceNotFoundException;
 import com.grego.userservice.repository.IUserRepository;
 import com.grego.userservice.security.jwt.JwtTokenUtil;
 import com.grego.userservice.service.IPhoneService;
@@ -27,6 +28,7 @@ import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -64,7 +66,6 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
                 String jwt = jwtUtil.generateToken(savedUser);
                 map.setToken(jwt);
                 this.saveToken(savedUser.getEmail(), jwt);
-
                 LOGGER.info("jwt generated");
                 return map;
 
@@ -74,11 +75,25 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
         }
     }
 
-    //TODO: Comletar el método
+    //this method is to proof that modifying the user entity in the repository is not required
     @Override
-    public UserSendDto update(UserReceivedDto user) {
-return null;
+    public UserSendDto disableUser(String email) {
+        if (this.existsByEmail(email)) {
+            try {
+                LOGGER.info("Disabling user");
+                LocalDate nowDate = LocalDate.now();
+                userRepository.disableUserByEmail(email, nowDate);
+                LOGGER.info("User disabled");
+                return this.findUserByEmail(email);
+
+            } catch (Exception e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        } else {
+            throw new ResourceNotFoundException("User not found");
+        }
     }
+
 
     //TODO: Delete this method
     @Override
@@ -90,6 +105,25 @@ return null;
         LOGGER.debug("user: {}", user);
         UserSendDto userSend = modelMapper.map(user, UserSendDto.class);
         return userSend;
+    }
+
+    @Override
+    public UserSendDto findUserByEmail(String email) {
+        if(this.existsByEmail(email)) {
+            try {
+                LOGGER.info("Finding user by email");
+                LOGGER.debug("email: {}", email);
+                Optional<User> user = userRepository.findUserByEmail(email);
+                LOGGER.info("User found");
+                LOGGER.debug("user: {}", user);
+                UserSendDto userSend = modelMapper.map(user, UserSendDto.class);
+                return userSend;
+            } catch (Exception e) {
+                throw new RuntimeException("Error finding user", e);
+            }
+        } else {
+            throw new ResourceNotFoundException("User not found");
+        }
     }
 
     //support method for create and update
@@ -107,11 +141,8 @@ return null;
     @Override
     public void saveToken(String email, String token) {
         LOGGER.info("Saving token");
-        LOGGER.debug("email: {}", email);
-        LOGGER.debug("token: {}", token);
         userRepository.updateUserTokenByEmail(email, token);
         LOGGER.info("Token saved");
-
     }
 
 
