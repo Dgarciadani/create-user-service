@@ -33,7 +33,8 @@ public class UserController {
     //this endpoint is protected by JWT whit any authority level
     //use Bearer token in the Authorization header
     @PostMapping("/disable")
-    public ResponseEntity<UserSendDto> disableUser(@RequestParam String email) {
+    public ResponseEntity<UserSendDto> disableUser(@RequestParam String email)   {
+        LOGGER.info("Disabling user with email: %s" + (email));
         return new ResponseEntity<UserSendDto>(userService.disableUser(email), HttpStatus.OK);
     }
 

@@ -1,5 +1,6 @@
 package com.grego.userservice.security.jwt;
 
+import com.grego.userservice.exceptions.AccessDeniedException;
 import com.grego.userservice.service.impl.UserService;
 
 import org.slf4j.Logger;
@@ -36,7 +37,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if(authorizationHeader != null &&  authorizationHeader.startsWith("Bearer")) {
             jwt = authorizationHeader.substring(7);
             username = jwtTokenUtil.extractUserName(jwt);
-            LOGGER.info("JWT: "+jwt);
+            logger.info("JWT: "+jwt);
+            logger.info("Username: "+username);
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

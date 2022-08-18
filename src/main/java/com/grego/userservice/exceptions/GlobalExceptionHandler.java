@@ -36,16 +36,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.toString());
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<Object> handleResourceNotFoundException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
-
-
-
-
+    @ExceptionHandler(AccessDeniedException.class)
+    public final ResponseEntity<Object> handleAccessDeniedException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity(exceptionResponse, HttpStatus.FORBIDDEN);
+    }
 
 
     @Override
@@ -53,7 +55,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getFieldError().getDefaultMessage());
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
-
 
 
 }

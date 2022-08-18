@@ -52,12 +52,11 @@ public class User implements UserDetails {
     }
 
 
-    //Not necessary for this project
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
-
+    //Not necessary for this project
     @Override
     public boolean isAccountNonExpired() {
         return true;
