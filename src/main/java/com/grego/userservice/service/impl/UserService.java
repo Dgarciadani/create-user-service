@@ -29,8 +29,6 @@ import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -143,7 +141,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
             user.setCreated(LocalDate.now());
             user.setModified(LocalDate.now());
             user.setLastLogin(LocalDate.now());
-            user.setUserRoles(UserRoles.USER);
+            user.setUserRole(UserRoles.USER);
             user.setIsactive(true);
             LOGGER.info("User initialized");
             return user;

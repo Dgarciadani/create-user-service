@@ -1,6 +1,7 @@
 package com.grego.userservice.domain.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.grego.userservice.domain.User;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @ToString
 public class PhoneReceivedDto {
-
+    @JsonIgnore
     private User user;
     @NotNull(message = "number is required")
     private String number;

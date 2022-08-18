@@ -41,13 +41,13 @@ public class User implements UserDetails {
     private boolean isactive;
 
     //Role
-    private UserRoles userRoles;
+    private UserRoles userRole;
     private String token;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRoles.name());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(authority);
     }
 
