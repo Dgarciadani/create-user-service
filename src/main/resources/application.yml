@@ -21,7 +21,8 @@ spring:
     defer-datasource-initialization: true
     hibernate:
       ddl-auto: create-drop
-    #sql:
+
+
 springdoc:
   swagger-ui:
     enabled: true
