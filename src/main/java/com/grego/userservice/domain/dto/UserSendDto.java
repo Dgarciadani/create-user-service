@@ -18,5 +18,5 @@ public class UserSendDto {
     private LocalDate modified;
     private LocalDate lastLogin;
     private String token;
-    private boolean active;
+    private boolean isactive;
 }

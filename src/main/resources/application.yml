@@ -15,8 +15,9 @@ spring:
     console:
       enabled: true
 
-  #  init:
-  #   data-locations: classpath:input.sql
+  sql:
+    init:
+      data-locations: classpath:init.sql
   jpa:
     defer-datasource-initialization: true
     hibernate:

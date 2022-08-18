@@ -7,7 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
+
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -41,7 +41,7 @@ public class User implements UserDetails {
     private LocalDate lastLogin;
 
     //State
-    private boolean active;
+    private boolean isactive;
 
     //Role
     private UserRoles userRoles;

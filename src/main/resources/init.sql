@@ -1,0 +1,1 @@
+insert into users(ID,ISACTIVE, CREATED, EMAIL, LAST_LOGIN, MODIFIED, NAME, PASSWORD, USER_ROLES) values (UUID(),true, '2016-01-01', 'pedro@pancho.com', '2016-01-01', '2016-01-01', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1);

@@ -1,6 +1,6 @@
 package com.grego.userservice.service.impl;
 
-import com.grego.userservice.domain.Phone;
+
 import com.grego.userservice.domain.User;
 import com.grego.userservice.domain.UserRoles;
 import com.grego.userservice.domain.dto.PhoneReceivedDto;
@@ -12,11 +12,11 @@ import com.grego.userservice.security.jwt.JwtTokenUtil;
 import com.grego.userservice.service.IPhoneService;
 import com.grego.userservice.service.IUserService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -115,7 +115,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
             user.setModified(LocalDate.now());
             user.setLastLogin(LocalDate.now());
             user.setUserRoles(UserRoles.USER);
-            user.setActive(true);
+            user.setIsactive(true);
             LOGGER.info("User initialized");
             return user;
         } catch (Exception e) {

@@ -1,16 +1,15 @@
 package com.grego.userservice.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.grego.userservice.domain.Phone;
+
 import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
+
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+
 
 @Getter
 @Setter
