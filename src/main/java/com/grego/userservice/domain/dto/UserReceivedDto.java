@@ -28,7 +28,6 @@ public class UserReceivedDto {
     @NotNull(message = "Password is required")
     private String password;
     @NotNull(message = "Phone is required")
-    private List<Phone> phones;
-
+    private List<PhoneReceivedDto> phones;
 
 }

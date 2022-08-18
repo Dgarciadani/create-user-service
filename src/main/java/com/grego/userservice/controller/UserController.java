@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@Validated
+
 public class UserController {
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired

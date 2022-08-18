@@ -3,6 +3,7 @@ package com.grego.userservice.service.impl;
 import com.grego.userservice.domain.Phone;
 import com.grego.userservice.domain.User;
 import com.grego.userservice.domain.UserRoles;
+import com.grego.userservice.domain.dto.PhoneReceivedDto;
 import com.grego.userservice.domain.dto.UserReceivedDto;
 import com.grego.userservice.domain.dto.UserSendDto;
 import com.grego.userservice.exceptions.EmailAlreadyRegisteredException;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
@@ -41,6 +43,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
     @Autowired
     private JwtTokenUtil jwtUtil;
     @Override
+    @Transactional(rollbackOn = ConstraintViolationException.class)
     public UserSendDto create(UserReceivedDto user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new EmailAlreadyRegisteredException("Email already registered");
@@ -55,7 +58,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
                 LOGGER.info(userEntity.toString());
                 User savedUser = userRepository.save(userEntity);
                 LOGGER.info("User saved");
-                List<Phone> phones = user.getPhones().stream().peek(phone -> phone.setUser(savedUser)).toList();
+                List<PhoneReceivedDto> phones = user.getPhones().stream().peek(phone -> phone.setUser(savedUser)).toList();
                 phoneService.saveAll(phones);
                 LOGGER.info("User and phone created");
                 UserSendDto map = modelMapper.map(savedUser, UserSendDto.class);
@@ -63,7 +66,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
                 map.setToken(jwt);
                 return map;
 
-            } catch (ConstraintViolationException e) {
+            } catch (Exception e) {
                 LOGGER.error(e.getMessage());
                 throw e;
             }
