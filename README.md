@@ -130,9 +130,11 @@ tengo discrepancias con este punto, bajo mi punto de vista, no deberia ser persi
 ```
 
 #### Deshabilitar Usuario
+Con el fin de probar el filtro de seguridad, establecí este endpoint, que redicbe como parametro el mail del usuario a desactivar
+y como Header, el token de acceso.
 
 ```http
-  POST /api/v1/users/disable
+  PUT /api/v1/users/disable
 ```
 
 | Parametro | Tipo     | Descripción                       |
