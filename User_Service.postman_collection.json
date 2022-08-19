@@ -227,7 +227,7 @@
 						}
 					]
 				},
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"url": {
 					"raw": "{{URL}}/api/v1/users/disable?email=pedro@pancho.com",
@@ -274,7 +274,7 @@
 				"auth": {
 					"type": "noauth"
 				},
-				"method": "POST",
+				"method": "PUT",
 				"header": [],
 				"url": {
 					"raw": "{{URL}}/api/v1/users/disable?email=pedro@pancho.com",
