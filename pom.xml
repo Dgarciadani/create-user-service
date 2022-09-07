@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.grego</groupId>
     <artifactId>user-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.11-SNAPSHOT</version>
     <name>user-service</name>
     <description>user service</description>
     <properties>
@@ -86,6 +86,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <image>
+                        <name>gregogc/nisum-${project.artifactId}:${project.version}</name>
+                    </image>
+                    <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

@@ -95,7 +95,7 @@ public class UserService implements IUserService<UserReceivedDto>, UserDetailsSe
 
     @Override
     public UserSendDto findUserByEmail(String email) {
-        if(this.existsByEmail(email)) {
+        if (this.existsByEmail(email)) {
             try {
                 LOGGER.info("Finding user by email");
                 LOGGER.debug("email: {}", email);
